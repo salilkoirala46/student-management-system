@@ -1,7 +1,7 @@
 <script setup>
 import MagnifyingGlass from "@/Components/Icons/MagnifyingGlass.vue";
-// import Pagination from "@/Components/Pagination.vue";
-// import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import Pagination from "@/Components/Pagination.vue";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, Link, router, useForm, usePage } from "@inertiajs/vue3";
 import { ref, watch, computed } from "vue";
 
@@ -60,7 +60,7 @@ watch(
 );
 
 const deleteForm = useForm({});
-
+console.log(deleteForm);
 const deleteStudent = (id) => {
     if (confirm("Are you sure you want to delete this student?")) {
         deleteForm.delete(route("students.destroy", id), {
@@ -71,14 +71,14 @@ const deleteStudent = (id) => {
 </script>
 
 <template>
-    <!-- <Head title="Students" /> -->
+    <Head title="Students List" />
 
-    <!-- <AuthenticatedLayout> -->
-        <!-- <template #header>
+    <AuthenticatedLayout>
+        <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Students
+                Students List
             </h2>
-        </template> -->
+        </template>
         <div class="bg-gray-100 py-10">
             <div class="mx-auto max-w-7xl">
                 <div class="px-4 sm:px-6 lg:px-8">
@@ -260,15 +260,15 @@ const deleteStudent = (id) => {
                                         </tbody>
                                     </table>
                                 </div>
-                                <!-- <Pagination
+                                <Pagination
                                     :data="students"
                                     :pageNumberUpdated="pageNumberUpdated"
-                                /> -->
+                                />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    <!-- </AuthenticatedLayout> -->
+    </AuthenticatedLayout>
 </template>

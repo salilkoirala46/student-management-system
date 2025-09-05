@@ -20,6 +20,7 @@ class StudentResource extends JsonResource
             'email' => $this->email,
             'class' => ClassesResource::make($this->whenLoaded('class')),//Only includes class and section if the relationship has been eager-loaded in your query (e.g., Student::with('class', 'section')).
             'section' => SectionResource::make($this->whenLoaded('section')),
+            'created_at_formatted' => $this->created_at->toFormattedDateString(),
         ];
     }
 }
