@@ -12,13 +12,27 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-    public function index(){
-        $students = StudentResource::Collection(Student::orderBy('id', 'asc')->paginate(10));
+    public function index(Request $request){
+        $studentsQuery = Student::query();
+
+        $this->applySearch($studentsQuery, $request->search);
+
+        $students = StudentResource::Collection(
+            $studentsQuery->paginate(10)
+        );
 
         return inertia('Students/Index', [
-            'students' => $students
+            'students' => $students,
+            'search' => $request->search ?? '',
         ]);
 
+    }
+
+    protected function applySearch($query, $search){
+        return $query->when($search, function($query, $search) {
+            $query->where('name', 'like', '%'.$search.'%')
+            ->orWhere('email', 'like', '%'.$search.'%');
+        });
     }
 
     public function create()
